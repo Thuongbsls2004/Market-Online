@@ -9,8 +9,7 @@ module.exports = {
     login: async (req, res,) => {
         const { email, password } = req.body;
         let user = await User.findOne({ email });
-        user = user.toObject();
-
+        
         if (!user) {
             return res.status(404).json({
                 access: false,
@@ -19,6 +18,7 @@ module.exports = {
                 }
             })
         }
+        user = user.toObject();
 
         
         const isValid = cypher.compareHash(password, user.password);
