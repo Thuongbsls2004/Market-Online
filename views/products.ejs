@@ -1,0 +1,41 @@
+<!-- products.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Products</title>
+</head>
+<body>
+  <h1>Products</h1>
+  <form action="/search" method="get">
+    <input type="text" name="name" placeholder="Search by name">
+    <select name="category">
+      <option value="">All categories</option>
+      <% categories.forEach(category => { %>
+        <option value="<%= category %>"><%= category %></option>
+      <% }); %>
+    </select>
+    <input type="number" name="min" placeholder="Min price">
+    <input type="number" name="max" placeholder="Max price">
+    <button type="submit">Search</button>
+  </form>
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Created At</th>
+    </tr>
+    <% products.forEach(product => { %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.description %></td>
+      <td><%= product.price %></td>
+      <td><%= product.category %></td>
+      <td><%= product.createdAt.toLocaleString() %></td>
+    </tr>
+    <% }); %>
+  </table>
+</body>
+</html>

@@ -59,4 +59,33 @@ module.exports = {
         });
     },
 
+    searchByName: async (req, res) => {
+        const name = req.params.name;
+        const products = await Product.find({ name: { $regex: name, $options: 'i' } });
+        res.render('products', { products });
+      },
+      
+      
+    searchByCategoryAndName: async (req, res) => {
+        const category = req.params.category;
+        const name = req.params.name;
+        const products = await Product.find({ category, name: { $regex: name, $options: 'i' } });
+        res.render('products', { products });
+      },
+      
+      searchByCategoryAndNameAndPriceRange: async (req, res) => {
+        const category = req.params.category;
+        const name = req.params.name;
+        const minPrice = parseInt(req.params.min);
+        const maxPrice = parseInt(req.params.max);
+        const products = await Product.find({
+          category,
+          name: { $regex: name, $options: 'i' },
+          price: { $gte: minPrice, $lte: maxPrice }
+        });
+        res.render('products', { products });
+      }
+
 };
+
+
